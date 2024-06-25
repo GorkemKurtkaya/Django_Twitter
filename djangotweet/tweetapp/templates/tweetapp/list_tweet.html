@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1>List of Tweets</h1>
+{% for tweet in tweets %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <h5 class="card-title">{{ tweet.nickname }}</h5>
+            <p class="card-text">{{ tweet.tweet }}</p>
+        </div>
+    </div>
+{% empty %}
+    <p>No tweets found.</p>
+
+{% endfor %}
+
+
+{%  endblock %}

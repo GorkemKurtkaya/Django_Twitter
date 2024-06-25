@@ -1,3 +1,34 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
+from . import models
+from django.urls import reverse
+from . import forms
 
 # Create your views here.
+
+def add_tweet(request):
+    if request.method == 'POST':
+        nickname = request.POST["nickname"]
+        tweet = request.POST["tweet"]
+        new_tweet = models.Tweet(nickname=nickname, tweet=tweet)
+        new_tweet.save()
+        return redirect(reverse('tweetapp:list_tweet'))
+    else:
+        return render(request, 'tweetapp/add_tweet.html')
+
+def list_tweet(request):
+    all_tweets = models.Tweet.objects.all()
+    tweet_dict={'tweets':all_tweets} 
+    return render(request, 'tweetapp/list_tweet.html', context=tweet_dict)
+
+def add_tweetbyform(request):
+    if request.method == 'POST':
+        form = forms.AddTweetForm(request.POST)
+        if form.is_valid():
+            nickname = form.cleaned_data['nickname_input']
+            tweet = form.cleaned_data['tweet_input']
+            new_tweet = models.Tweet(nickname=nickname, tweet=tweet)
+            new_tweet.save()
+            return redirect(reverse('tweetapp:list_tweet'))
+    else:
+        form = forms.AddTweetForm()
+    return render(request, 'tweetapp/add_tweetbyform.html', {'form': form})
