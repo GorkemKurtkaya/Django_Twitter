@@ -1,0 +1,27 @@
+ {% extends "base.html" %}
+
+{% block content %}
+{% if form.errors%}
+    <div class="alert alert-danger">
+        {{form.errors}}
+    </div>
+{% endif %}
+
+{% if request.user.is_authenticated %}
+    <h1>Already Logged in</h1>
+    {% else %}
+    <div class="tweetform">
+            <form method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                
+                {% for field in form %}
+                <div class="mb-3">
+                    {{field.label_tag}}
+                    {{field}}
+                </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary" >Login</button>
+                </form>
+            </div>
+    {% endif %}
+{%endblock%}

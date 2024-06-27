@@ -2,10 +2,12 @@ from django.shortcuts import render,redirect
 from . import models
 from django.urls import reverse
 from . import forms
+from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
 
+@login_required(login_url="/login")
 def add_tweet(request):
     if request.method == 'POST':
         nickname = request.POST["nickname"]
@@ -15,6 +17,7 @@ def add_tweet(request):
         return redirect(reverse('tweetapp:list_tweet'))
     else:
         return render(request, 'tweetapp/add_tweet.html')
+
 
 def list_tweet(request):
     all_tweets = models.Tweet.objects.all()
