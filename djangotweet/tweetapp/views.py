@@ -3,6 +3,7 @@ from . import models
 from django.urls import reverse
 from . import forms
 
+
 # Create your views here.
 
 def add_tweet(request):
@@ -32,3 +33,13 @@ def add_tweetbyform(request):
     else:
         form = forms.AddTweetForm()
     return render(request, 'tweetapp/add_tweetbyform.html', {'form': form})
+
+def add_tweetbymodelform(request):
+    if request.method == 'POST':
+        form = forms.AddTweetModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(reverse('tweetapp:list_tweet'))
+    else:
+        form = forms.AddTweetModelForm()
+    return render(request, 'tweetapp/add_tweetbymodelform.html', {'form': form})
