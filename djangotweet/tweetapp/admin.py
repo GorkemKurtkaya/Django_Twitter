@@ -5,10 +5,10 @@ from tweetapp.models import Tweet
 
 class TweetAdmin(admin.ModelAdmin):
     fieldsets=[
-        ('Nickname', {'fields': ['nickname']}),
+        ('Username', {'fields': ['username']}),
         ('Tweet', {'fields': ['tweet']}),
     ]
-    list_display = ('nickname', 'tweet')
+    list_display = ('username', 'tweet')
 
 
 

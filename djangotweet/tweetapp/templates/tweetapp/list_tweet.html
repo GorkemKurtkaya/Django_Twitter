@@ -7,7 +7,7 @@
         {% for tweet in tweets %}
                 <div class="card " style="padding:50px;">
                     <div class="card-header" style="background-color: brown;">
-                        <h4>{{ tweet.nickname }}</h4>
+                        <h4>{{ tweet.username }}</h4>
 
                     </div>
 
@@ -15,6 +15,17 @@
                         <p class="card-text">{{ tweet.tweet}}</p>
 
                     </div>
+                    {%if tweet.username == user%}
+                    <div class="card-footer">
+                        <a href="{%url 'tweetapp:deletetweet' id=tweet.id  %}" class="btn btn-danger">Delete</a>
+                        </div>
+                    {%endif%}
+
+                    {%if tweet.username == user%}
+                    <div class="card-footer">
+                        <a href="{%url 'tweetapp:edit_tweet' id=tweet.id  %}" class="btn btn-primary">Edit</a>
+                        </div>
+                    {%endif%}
                 
                 </div>
         {% endfor %}
