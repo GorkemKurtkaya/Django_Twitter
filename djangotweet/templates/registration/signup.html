@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+    <div class="tweetform">
+                <h1>SignUp</h1>
+            <form method="POST" action="">
+                {% csrf_token %}
+                
+                {% for field in form %}
+                <div class="mb-3">
+                    {{field.label_tag}}
+                    {{field}}
+                </div>
+                {% endfor %}
+                <button type="submit" class="btn btn-primary" value="signup" >SignUp</button>
+                </form>
+            </div>
+
+{%endblock%}

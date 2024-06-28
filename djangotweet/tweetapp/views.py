@@ -1,8 +1,10 @@
 from django.shortcuts import render,redirect
 from . import models
-from django.urls import reverse
+from django.urls import reverse,reverse_lazy
 from . import forms
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.forms import UserCreationForm
+from django.views.generic import CreateView
 
 
 # Create your views here.
@@ -46,3 +48,11 @@ def add_tweetbymodelform(request):
     else:
         form = forms.AddTweetModelForm()
     return render(request, 'tweetapp/add_tweetbymodelform.html', {'form': form})
+
+class SignUpView(CreateView):
+    form_class = UserCreationForm
+    success_url = reverse_lazy("login")
+    template_name = 'registration/signup.html'
+    
+    
+    
